@@ -23,6 +23,7 @@ public class CommandProcessor {
      */
     public CommandProcessor() {
         data = new Database();
+        testing
     }
 
 
