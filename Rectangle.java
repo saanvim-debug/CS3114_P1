@@ -86,7 +86,10 @@ public class Rectangle {
      * @return true if the rectangle intersects with rec, false if not
      */
     public boolean intersect(Rectangle r2) {
-        return false;
+        return xCoordinate < r2.xCoordinate + r2.width
+            && xCoordinate + width > r2.xCoordinate
+            && yCoordinate < r2.yCoordinate + r2.height
+            && yCoordinate + height > r2.yCoordinate;
 
     }
 
@@ -100,7 +103,16 @@ public class Rectangle {
      *         not
      */
     public boolean equals(Object rec) {
-        return false;
+        if (!(rec instanceof Rectangle)) {
+            return false;
+        }
+
+        Rectangle other = (Rectangle)rec;
+
+        return xCoordinate == other.xCoordinate
+            && yCoordinate == other.yCoordinate
+            && width == other.width
+            && height == other.height;
     }
 
 
@@ -112,7 +124,7 @@ public class Rectangle {
      *         rectangle
      */
     public String toString() {
-        return null;
+        return xCoordinate + ", " + yCoordinate + ", " + width + ", " + height;
     }
 
 
@@ -122,6 +134,9 @@ public class Rectangle {
      * @return true if the rectangle has invalid parameters, false if not
      */
     public boolean isInvalid() {
-        return false;
+        return xCoordinate < 0 || yCoordinate < 0 || width <= 0
+            || height <= 0
+            || xCoordinate + width > 1024
+            || yCoordinate + height > 1024;
     }
 }
