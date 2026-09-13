@@ -10,7 +10,7 @@ import student.TestableRandom;
 /**
  * This class tests the methods of SkipList class
  * 
- * @author CS Staff
+ * @author Saanvi Movva
  * 
  * @version 2024-01-22
  */

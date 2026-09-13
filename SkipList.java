@@ -8,7 +8,7 @@ import student.TestableRandom;
  * This class implements SkipList data structure and contains an inner SkipNode
  * class which the SkipList will make an array of to store data.
  * 
- * @author CS Staff
+ * @author Saanvi Movva saanvim
  * 
  * @version 2024-01-22
  * @param <K>
