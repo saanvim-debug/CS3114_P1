@@ -32,8 +32,8 @@ public class CommandProcessorTest extends TestCase {
     public void testInvalidCommand() {
         processor.processor("hello");
 
-        assertFuzzyEquals(
-            "Unrecognized command.",
+        assertEquals(
+            "Unrecognized command.\n",
             systemOut().getHistory());
     }
 
@@ -42,6 +42,10 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testInsert() {
         processor.processor("insert a 1 2 3 4");
+
+        assertEquals(
+            "Rectangle inserted: (a, 1, 2, 3, 4)\n",
+            systemOut().getHistory());
     }
 
     /**
@@ -50,6 +54,10 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testRemoveByName() {
         processor.processor("remove a");
+
+        assertEquals(
+            "",
+            systemOut().getHistory());
     }
 
     /**
@@ -58,6 +66,10 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testRemoveByCoordinates() {
         processor.processor("remove 1 2 3 4");
+
+        assertEquals(
+            "",
+            systemOut().getHistory());
     }
 
     /**
@@ -65,6 +77,10 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testRegionSearch() {
         processor.processor("regionsearch 1 2 3 4");
+
+        assertEquals(
+            "",
+            systemOut().getHistory());
     }
 
     /**
@@ -72,6 +88,10 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testIntersections() {
         processor.processor("intersections");
+
+        assertEquals(
+            "",
+            systemOut().getHistory());
     }
 
     /**
@@ -80,6 +100,10 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testSearch() {
         processor.processor("search a");
+
+        assertEquals(
+            "",
+            systemOut().getHistory());
     }
 
     /**
@@ -87,8 +111,81 @@ public class CommandProcessorTest extends TestCase {
      */
     public void testDump() {
         processor.processor("dump");
+
+        assertEquals(
+            "SkipList dump:\n"
+            + "Node with depth 1, Value null\n"
+            + "SkipList size is: 0\n",
+            systemOut().getHistory());
+
+    }
+    
+    /**
+     * Tests processing an insert command with an invalid rectangle.
+     */
+    public void testInvalidInsert() {
+        processor.processor("insert bad -1 2 3 4");
+
+        assertEquals(
+            "Rectangle rejected: (bad, -1, 2, 3, 4)\n",
+            systemOut().getHistory());
+    }
+    
+    
+    /**
+     * Tests insert with different values to verify that all
+     * parameters are parsed correctly.
+     */
+    public void testInsertDifferentValues() {
+        processor.processor("insert box 10 20 30 40");
+
+        assertEquals(
+            "Rectangle inserted: (box, 10, 20, 30, 40)\n",
+            systemOut().getHistory());
     }
 
+
+    /**
+     * Tests an insert with zero width.
+     */
+    public void testInvalidInsertWidth() {
+        processor.processor("insert bad 1 2 0 4");
+
+        assertEquals(
+            "Rectangle rejected: (bad, 1, 2, 0, 4)\n",
+            systemOut().getHistory());
+    }
+
+
+    /**
+     * Tests an insert with zero height.
+     */
+    public void testInvalidInsertHeight() {
+        processor.processor("insert bad 1 2 3 0");
+
+        assertEquals(
+            "Rectangle rejected: (bad, 1, 2, 3, 0)\n",
+            systemOut().getHistory());
+    }
+
+
+    /**
+     * Tests dump after inserting multiple rectangles.
+     */
+    public void testMultipleInsertAndDump() {
+        processor.processor("insert a 1 2 3 4");
+        processor.processor("insert b 10 20 30 40");
+
+        systemOut().clearHistory();
+
+        processor.processor("dump");
+
+        String output = systemOut().getHistory();
+
+        assertTrue(output.contains("(a, 1, 2, 3, 4)"));
+        assertTrue(output.contains("(b, 10, 20, 30, 40)"));
+        assertTrue(output.contains("SkipList size is: 2"));
+    }
 
 }
 

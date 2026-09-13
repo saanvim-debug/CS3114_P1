@@ -17,10 +17,13 @@ import student.TestableRandom;
 
 public class SkipListTest extends TestCase {
 	
-	SkipList<String, Rectangle> sl;
+	private SkipList<String, Rectangle> sl;
 	
+	
+	/**
+	 * Creates a new SkipList before each test.
+	 */
 	public void setUp() {
-		// TODO: implement setup
 		sl = new SkipList<String, Rectangle>();
 	}
 
@@ -60,7 +63,6 @@ public class SkipListTest extends TestCase {
 		assertEquals(expectedLevelValue, randomLevelValue);
 	}
 	
-    // TODO: implement more tests
 	public void testAdjustHead() {
 	    // Start with an empty SkipList.
 	    sl = new SkipList<String, Rectangle>();

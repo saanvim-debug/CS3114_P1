@@ -132,4 +132,5 @@ public class RectangleTest extends TestCase {
         assertFalse(new Rectangle(0, 0, 1024, 1024).isInvalid());
     }
     
+    
 }

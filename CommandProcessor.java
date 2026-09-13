@@ -18,8 +18,7 @@ public class CommandProcessor {
      * exist, so the only constructor takes a database class object to feed
      * commands to.
      * 
-     * @param dataIn
-     *            the database object to manipulate
+     * Creates a command processor with a new database.
      */
     public CommandProcessor() {
         data = new Database();
@@ -29,8 +28,9 @@ public class CommandProcessor {
     /**
      * This method parses keywords in the line and calls methods in the
      * database as required. Each line command will be specified by one of the
-     * keywords to perform the actions. 
-     * These actions are performed on specified objects and include insert, remove,
+     * keywords to perform the actions.
+     * These actions are performed on specified objects and include insert,
+     * remove,
      * regionsearch, search, and dump. If the command in the file line is not
      * one of these, an appropriate message will be written in the console. This
      * processor method is called for each line in the file. Note that the
@@ -43,7 +43,7 @@ public class CommandProcessor {
     public void processor(String line) {
         // converts the string of the line into an
         // array of its space (" ") delimited elements
-        String[] arr = line.split("\\s{1,}");        
+        String[] arr = line.split("\\s{1,}");
         String command = arr[0]; // the command will be the first of these
                                  // elements
         // calls the insert function and passes the correct
@@ -57,8 +57,8 @@ public class CommandProcessor {
             int h = Integer.parseInt(arr[5]);
 
             Rectangle rect = new Rectangle(x, y, w, h);
-            KVPair<String, Rectangle> pair =
-                new KVPair<String, Rectangle>(name, rect);
+            KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name,
+                rect);
 
             data.insert(pair);
         }
@@ -69,40 +69,34 @@ public class CommandProcessor {
             int numParam = arr.length - 1;
             if (numParam == 1) {
                 data.remove(arr[1]);
-                
+
             }
             else if (numParam == 4) {
-                data.remove(
-                    Integer.parseInt(arr[1]),
-                    Integer.parseInt(arr[2]),
-                    Integer.parseInt(arr[3]),
-                    Integer.parseInt(arr[4]));
-                
+                data.remove(Integer.parseInt(arr[1]), Integer.parseInt(arr[2]),
+                    Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
+
             }
-            
+
         }
         else if (command.equals("regionsearch")) {
-            data.regionsearch(
-                Integer.parseInt(arr[1]),
-                Integer.parseInt(arr[2]),
-                Integer.parseInt(arr[3]),
-                Integer.parseInt(arr[4]));
+            data.regionsearch(Integer.parseInt(arr[1]), Integer.parseInt(
+                arr[2]), Integer.parseInt(arr[3]), Integer.parseInt(arr[4]));
 
         }
         else if (command.equals("intersections")) {
             data.intersections();
-           
+
         }
         else if (command.equals("search")) {
             data.search(arr[1]);
-           
+
         }
         else if (command.equals("dump")) {
             data.dump();
 
         }
         else {
-                // the first white space delimited string in the line is not
+            // the first white space delimited string in the line is not
             // one of the commands which can manipulate the database,
             // a message will be written to the console
             System.out.println("Unrecognized command.");

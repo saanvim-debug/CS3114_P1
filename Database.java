@@ -7,7 +7,7 @@ import java.util.Iterator;
  * class further interpreting the command means that the two types of remove
  * will be overloaded methods for if we are removing by name or by coordinates.
  * Many of these methods will simply call the appropriate version of the
- * SkipList method after some preparation. 
+ * SkipList method after some preparation.
  * 
  * @author CS Staff
  * 
@@ -20,11 +20,11 @@ public class Database {
     // a rectangle object, these are stored in a KVPair,
     // see the KVPair class for more information
     private SkipList<String, Rectangle> list;
-    
-    //This is an Iterator object over the SkipList to loop through it from outside the class.
-    //You will need to define an extra Iterator for the intersections method.
+
+    // This is an Iterator object over the SkipList to loop through it from
+    // outside the class.
+    // You will need to define an extra Iterator for the intersections method.
     private Iterator<KVPair<String, Rectangle>> itr1;
-    
 
     /**
      * The constructor for this class initializes a SkipList object with String
@@ -49,6 +49,15 @@ public class Database {
         // writing the correct message to the console from
         // that
 
+        if (pair.getValue().isInvalid()) {
+            System.out.println("Rectangle rejected: " + pair);
+        }
+        else {
+            list.insert(pair);
+
+            System.out.println("Rectangle inserted: " + pair);
+        }
+
     }
 
 
@@ -60,7 +69,6 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-    
 
     }
 
@@ -79,7 +87,7 @@ public class Database {
      *            height of the rectangle to be removed
      */
     public void remove(int x, int y, int w, int h) {
-        
+
     }
 
 
@@ -99,16 +107,19 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-    	
+
     }
 
+
     /**
-     * Prints out all the rectangles that intersect each other. Note that 
-     * it is better not to implement an intersections method in the SkipList class
-     * as the SkipList needs to be agnostic about the fact that it is storing Rectangles. 
+     * Prints out all the rectangles that intersect each other. Note that
+     * it is better not to implement an intersections method in the SkipList
+     * class
+     * as the SkipList needs to be agnostic about the fact that it is storing
+     * Rectangles.
      */
     public void intersections() {
-    	
+
     }
 
 
@@ -120,7 +131,7 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
-        
+
     }
 
 
@@ -130,7 +141,7 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        
+        list.dump();
     }
 
 }
