@@ -35,7 +35,7 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
 	// keep this method private. Since, we do not have any methods to call
 	// this method at this time, we keep this publicly accessible and testable.  
 	public int randomLevel() {
-		int level = 0;
+		int level = 1;
 		while (rng.nextBoolean())
 			level++;
 		return level;
@@ -70,7 +70,30 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      */
     @SuppressWarnings("unchecked")
     public void insert(KVPair<K, V> it) {
+        int newLevel = randomLevel();
+        if (newLevel > head.level) {
+            adjustHead(newLevel);
+        }
         
+        SkipNode[] update = (SkipNode[]) Array.newInstance(SkipNode.class, head.level + 1);
+        SkipNode x = head;
+        
+        for(int i = head.level; i >= 0; i--) {
+            while(x.forward[i] != null && x.forward[i].element().compareTo(it) < 0) {
+                x = x.forward[i];
+            }
+            update[i] = x;
+        }
+        
+        x = new SkipNode(it, newLevel);
+        x.pair = it; // assigning pair since constructor leaves it null in template
+        
+        for (int i = 0; i <= newLevel; i++) {
+            x.forward[i] = update[i].forward[i];
+            update[i].forward[i] = x;
+        }
+        size++;
+            
     }
 
 
@@ -83,7 +106,11 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      */
     @SuppressWarnings("unchecked")
     public void adjustHead(int newLevel) {
-        
+        SkipNode temp = head;
+        head = new SkipNode(null, newLevel);
+        for (int i = 0; i <= temp.level; i++) {
+            head.forward[i] = temp.forward[i];
+        }
     }
 
 
@@ -118,7 +145,16 @@ public class SkipList<K extends Comparable<? super K>, V> implements Iterable<KV
      * Prints out the SkipList in a human readable format to the console.
      */
     public void dump() {
-  
+        System.out.println("SkipList dump:");
+        SkipNode temp = head;
+        System.out.println("Node with depth " + (temp.level + 1) + ", Value " + temp.element());
+        
+        temp = head.forward[0];
+        while (temp != null) {
+            System.out.println("Node with depth " + (temp.level + 1) + ", Value " + temp.element().getValue());
+            temp = temp.forward[0];
+        }
+        System.out.println("SkipList size is: " + size);
     }
 
     /**
