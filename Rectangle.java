@@ -4,10 +4,10 @@
  * check if it intersects or has the same coordinates as an other rectangle.
  * 
  * @author CS Staff
- * 
  * @version 2024-01-22
  */
-public class Rectangle {
+public class Rectangle
+{
     // the x coordinate of the rectangle
     private int xCoordinate;
     // the y coordinate of the rectangle
@@ -30,7 +30,8 @@ public class Rectangle {
      * @param h
      *            height of the rectangle
      */
-    public Rectangle(int x, int y, int w, int h) {
+    public Rectangle(int x, int y, int w, int h)
+    {
         xCoordinate = x;
         yCoordinate = y;
         width = w;
@@ -43,7 +44,8 @@ public class Rectangle {
      *
      * @return the x coordinate
      */
-    public int getxCoordinate() {
+    public int getxCoordinate()
+    {
         return xCoordinate;
     }
 
@@ -53,7 +55,8 @@ public class Rectangle {
      *
      * @return the y coordinate
      */
-    public int getyCoordinate() {
+    public int getyCoordinate()
+    {
         return yCoordinate;
     }
 
@@ -63,7 +66,8 @@ public class Rectangle {
      *
      * @return the width
      */
-    public int getWidth() {
+    public int getWidth()
+    {
         return width;
     }
 
@@ -73,7 +77,8 @@ public class Rectangle {
      *
      * @return the height
      */
-    public int getHeight() {
+    public int getHeight()
+    {
         return height;
     }
 
@@ -85,7 +90,8 @@ public class Rectangle {
      *            Rectangle parameter
      * @return true if the rectangle intersects with rec, false if not
      */
-    public boolean intersect(Rectangle r2) {
+    public boolean intersect(Rectangle r2)
+    {
         return xCoordinate < r2.xCoordinate + r2.width
             && xCoordinate + width > r2.xCoordinate
             && yCoordinate < r2.yCoordinate + r2.height
@@ -100,18 +106,19 @@ public class Rectangle {
      * @param rec
      *            the rectangle parameter
      * @return true if the rectangle has the same coordinates as rec, false if
-     *         not
+     *             not
      */
-    public boolean equals(Object rec) {
-        if (!(rec instanceof Rectangle)) {
+    public boolean equals(Object rec)
+    {
+        if (!(rec instanceof Rectangle))
+        {
             return false;
         }
 
         Rectangle other = (Rectangle)rec;
 
         return xCoordinate == other.xCoordinate
-            && yCoordinate == other.yCoordinate
-            && width == other.width
+            && yCoordinate == other.yCoordinate && width == other.width
             && height == other.height;
     }
 
@@ -121,9 +128,10 @@ public class Rectangle {
      * which includes the x and y coordinate and its height and width
      * 
      * @return a human readable string containing information about the
-     *         rectangle
+     *             rectangle
      */
-    public String toString() {
+    public String toString()
+    {
         return xCoordinate + ", " + yCoordinate + ", " + width + ", " + height;
     }
 
@@ -133,10 +141,9 @@ public class Rectangle {
      * 
      * @return true if the rectangle has invalid parameters, false if not
      */
-    public boolean isInvalid() {
-        return xCoordinate < 0 || yCoordinate < 0 || width <= 0
-            || height <= 0
-            || xCoordinate + width > 1024
-            || yCoordinate + height > 1024;
+    public boolean isInvalid()
+    {
+        return xCoordinate < 0 || yCoordinate < 0 || width <= 0 || height <= 0
+            || xCoordinate + width > 1024 || yCoordinate + height > 1024;
     }
 }

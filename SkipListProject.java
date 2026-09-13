@@ -16,7 +16,6 @@ import java.util.Scanner;
 // anything during the discussion or modifies any computer file
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
- 
 
 /**
  * The class containing the main method, the entry point of the application. It
@@ -25,10 +24,10 @@ import java.util.Scanner;
  * to the console as specified in the file.
  *
  * @author CS Staff
- * 
  * @version 2024-01-22
  */
-public class SkipListProject {
+public class SkipListProject
+{
 
     /**
      * The entry point of the application.
@@ -37,36 +36,40 @@ public class SkipListProject {
      *            The name of the command file passed in as a command line
      *            argument.
      */
-    public static void main(String[] args) {
-    	
-    	if (args.length < 1) {
-			System.out.println("Invalid file. No filename in command line arguments");
-			return;
-		}
-        
-    	// the file containing the commands
+    public static void main(String[] args)
+    {
+
+        if (args.length < 1)
+        {
+            System.out
+                .println("Invalid file. No filename in command line arguments");
+            return;
+        }
+
+        // the file containing the commands
         File file = null;
 
-        
-
         // Attempts to open the file and scan through it
-        try {
-        	
-        	// takes the first command line argument and opens that file
+        try
+        {
+
+            // takes the first command line argument and opens that file
             file = new File(args[0]);
-            
+
             // creates a scanner object
             Scanner scanner = new Scanner(file);
-            
+
             // creates a command processor object
             CommandProcessor cmdProc = new CommandProcessor();
-            
+
             // reads the entire file and processes the commands
             // line by line
-            while (scanner.hasNextLine()) {
+            while (scanner.hasNextLine())
+            {
                 String line = scanner.nextLine();
                 // determines if the file has more lines to read
-                if (!line.trim().isEmpty()) {
+                if (!line.trim().isEmpty())
+                {
                     cmdProc.processor(line.trim());
                 }
             }
@@ -75,7 +78,8 @@ public class SkipListProject {
         }
         // catches the exception if the file cannot be found
         // and outputs the correct information to the console
-        catch (FileNotFoundException e) {
+        catch (FileNotFoundException e)
+        {
             System.out.println("Invalid file");
             e.printStackTrace();
         }

@@ -7,14 +7,17 @@ import student.TestableRandom;
  * @author Yosna Venkatesh
  * @version 2026-09-13
  */
-public class DatabaseTest extends TestCase {
+public class DatabaseTest
+    extends TestCase
+{
 
     private Database database;
 
     /**
      * Creates a new database before each test.
      */
-    public void setUp() {
+    public void setUp()
+    {
         database = new Database();
     }
 
@@ -22,7 +25,8 @@ public class DatabaseTest extends TestCase {
     /**
      * Tests inserting a valid rectangle.
      */
-    public void testValidInsert() {
+    public void testValidInsert()
+    {
         TestableRandom.setNextBooleans(false);
 
         Rectangle rect = new Rectangle(1, 2, 3, 4);
@@ -40,7 +44,8 @@ public class DatabaseTest extends TestCase {
     /**
      * Tests rejecting an invalid rectangle.
      */
-    public void testInvalidInsert() {
+    public void testInvalidInsert()
+    {
         Rectangle rect = new Rectangle(-1, 2, 3, 4);
         KVPair<String, Rectangle> pair =
             new KVPair<String, Rectangle>("bad", rect);
@@ -56,13 +61,13 @@ public class DatabaseTest extends TestCase {
     /**
      * Tests dumping an empty database.
      */
-    public void testEmptyDump() {
+    public void testEmptyDump()
+    {
         database.dump();
 
         assertEquals(
-            "SkipList dump:\n"
-            + "Node with depth 1, Value null\n"
-            + "SkipList size is: 0\n",
+            "SkipList dump:\n" + "Node with depth 1, Value null\n"
+                + "SkipList size is: 0\n",
             systemOut().getHistory());
     }
 
@@ -70,7 +75,8 @@ public class DatabaseTest extends TestCase {
     /**
      * Tests that an inserted rectangle appears in the dump.
      */
-    public void testInsertAndDump() {
+    public void testInsertAndDump()
+    {
         TestableRandom.setNextBooleans(false);
 
         Rectangle rect = new Rectangle(1, 2, 3, 4);
@@ -84,10 +90,9 @@ public class DatabaseTest extends TestCase {
         database.dump();
 
         assertEquals(
-            "SkipList dump:\n"
-            + "Node with depth 2, Value null\n"
-            + "Node with depth 2, Value (a, 1, 2, 3, 4)\n"
-            + "SkipList size is: 1\n",
+            "SkipList dump:\n" + "Node with depth 2, Value null\n"
+                + "Node with depth 2, Value (a, 1, 2, 3, 4)\n"
+                + "SkipList size is: 1\n",
             systemOut().getHistory());
     }
 }

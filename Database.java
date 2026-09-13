@@ -10,10 +10,10 @@ import java.util.Iterator;
  * SkipList method after some preparation.
  * 
  * @author CS Staff
- * 
  * @version 2024-01-22
  */
-public class Database {
+public class Database
+{
 
     // this is the SkipList object that we are using
     // a string for the name of the rectangle and then
@@ -30,7 +30,8 @@ public class Database {
      * The constructor for this class initializes a SkipList object with String
      * and Rectangle a its parameters.
      */
-    public Database() {
+    public Database()
+    {
         list = new SkipList<String, Rectangle>();
     }
 
@@ -38,21 +39,24 @@ public class Database {
     /**
      * Inserts the KVPair in the SkipList if the rectangle has valid coordinates
      * and dimensions, that is that the coordinates are non-negative and that
-     * the rectangle object has some area (not 0, 0, 0, 0). This insert will
-     * add the KVPair specified into the sorted SkipList appropriately
+     * the rectangle object has some area (not 0, 0, 0, 0). This insert will add
+     * the KVPair specified into the sorted SkipList appropriately
      * 
      * @param pair
      *            the KVPair to be inserted
      */
-    public void insert(KVPair<String, Rectangle> pair) {
+    public void insert(KVPair<String, Rectangle> pair)
+    {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
 
-        if (pair.getValue().isInvalid()) {
+        if (pair.getValue().isInvalid())
+        {
             System.out.println("Rectangle rejected: " + pair);
         }
-        else {
+        else
+        {
             list.insert(pair);
 
             System.out.println("Rectangle inserted: " + pair);
@@ -68,7 +72,8 @@ public class Database {
      * @param name
      *            the name of the rectangle to be removed
      */
-    public void remove(String name) {
+    public void remove(String name)
+    {
 
     }
 
@@ -86,7 +91,8 @@ public class Database {
      * @param h
      *            height of the rectangle to be removed
      */
-    public void remove(int x, int y, int w, int h) {
+    public void remove(int x, int y, int w, int h)
+    {
 
     }
 
@@ -106,20 +112,21 @@ public class Database {
      * @param h
      *            height of the region
      */
-    public void regionsearch(int x, int y, int w, int h) {
-
+    public void regionsearch(int x, int y, int w, int h)
+    {
+        // fill
     }
 
 
     /**
-     * Prints out all the rectangles that intersect each other. Note that
-     * it is better not to implement an intersections method in the SkipList
-     * class
-     * as the SkipList needs to be agnostic about the fact that it is storing
+     * Prints out all the rectangles that intersect each other. Note that it is
+     * better not to implement an intersections method in the SkipList class as
+     * the SkipList needs to be agnostic about the fact that it is storing
      * Rectangles.
      */
-    public void intersections() {
-
+    public void intersections()
+    {
+        // fill
     }
 
 
@@ -130,8 +137,9 @@ public class Database {
      * @param name
      *            name of the Rectangle to be searched for
      */
-    public void search(String name) {
-
+    public void search(String name)
+    {
+        // fill
     }
 
 
@@ -140,7 +148,8 @@ public class Database {
      * size of the SkipList and shows all of the contents of the SkipList. This
      * will all be delegated to the SkipList.
      */
-    public void dump() {
+    public void dump()
+    {
         list.dump();
     }
 

@@ -5,7 +5,6 @@
  * in the KVPair into a human readable string.
  * 
  * @author CS Staff
- * 
  * @version 2024-01-22
  * @param <K>
  *            Key to be used
@@ -15,7 +14,8 @@
 
 // Another Implementation choice is to require K to implement Comparable not
 // KVPair
-public class KVPair<K extends Comparable<? super K>, V> {
+public class KVPair<K extends Comparable<? super K>, V>
+{
 
     // the object to be a key
     private K key;
@@ -31,7 +31,8 @@ public class KVPair<K extends Comparable<? super K>, V> {
      * @param val
      *            the value for the KVPair
      */
-    public KVPair(K strKey, V val) {
+    public KVPair(K strKey, V val)
+    {
         this.key = strKey;
         this.value = val;
     }
@@ -42,7 +43,8 @@ public class KVPair<K extends Comparable<? super K>, V> {
      *
      * @return the key of the KVPair
      */
-    public K getKey() {
+    public K getKey()
+    {
         return key;
     }
 
@@ -52,7 +54,8 @@ public class KVPair<K extends Comparable<? super K>, V> {
      *
      * @return the value that the KVPair holds
      */
-    public V getValue() {
+    public V getValue()
+    {
         return value;
     }
 
@@ -62,7 +65,8 @@ public class KVPair<K extends Comparable<? super K>, V> {
      *
      * @return A human readable string representing the KVPair object
      */
-    public String toString() {
+    public String toString()
+    {
         return "(" + key + ", " + value + ")";
     }
 }

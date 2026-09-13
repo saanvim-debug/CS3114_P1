@@ -6,12 +6,14 @@ import student.TestCase;
  * and that the expected behavior occurs.
  * 
  * @author CS Staff
- * 
  * @version 2024.1
  */
-public class KVPairTest extends TestCase {
+public class KVPairTest
+    extends TestCase
+{
 
-    public void setUp() {
+    public void setUp()
+    {
         // TODO: implement setup
     }
 
