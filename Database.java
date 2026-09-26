@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for interfacing between the command processor and
@@ -55,6 +56,7 @@ public class Database
         {
             System.out.println("Rectangle rejected: " + pair);
         }
+        
         else
         {
             list.insert(pair);
@@ -74,7 +76,17 @@ public class Database
      */
     public void remove(String name)
     {
+        KVPair<String, Rectangle> removed = list.remove(name);
 
+        if (removed == null) 
+        {
+            System.out.println("Rectangle not removed: " + name);
+        }
+        
+        else 
+        {
+            System.out.println("Rectangle removed: " + removed);
+        }
     }
 
 
@@ -93,7 +105,29 @@ public class Database
      */
     public void remove(int x, int y, int w, int h)
     {
+        Rectangle rect = new Rectangle(x, y, w, h);
 
+        if (rect.isInvalid()) 
+        {
+            System.out.println(
+                "Rectangle rejected: (" + rect + ")");
+            return;
+        }
+
+        KVPair<String, Rectangle> removed =
+            list.removeByValue(rect);
+
+        if (removed == null) 
+        {
+            System.out.println(
+                "Rectangle not found: (" + rect + ")");
+        }
+        
+        else 
+        {
+            System.out.println(
+                "Rectangle removed: " + removed);
+        }
     }
 
 
@@ -114,7 +148,31 @@ public class Database
      */
     public void regionsearch(int x, int y, int w, int h)
     {
-        // fill
+        if (w <= 0 || h <= 0) 
+        {
+            System.out.println(
+                "Rectangle rejected: ("
+                + x + ", " + y + ", "
+                + w + ", " + h + ")");
+            return;
+        }
+
+        Rectangle region = new Rectangle(x, y, w, h);
+
+        System.out.println(
+            "Rectangles intersecting region ("
+            + x + ", " + y + ", "
+            + w + ", " + h + "):");
+
+        for (KVPair<String, Rectangle> pair : list) 
+        {
+            
+            if (pair.getValue().intersect(region)) 
+            {
+                System.out.println(pair);
+            }
+            
+        }
     }
 
 
@@ -126,7 +184,43 @@ public class Database
      */
     public void intersections()
     {
-        // fill
+        System.out.println("Intersection pairs:");
+
+        Iterator<KVPair<String, Rectangle>> outer =
+            list.iterator();
+
+        while (outer.hasNext()) 
+        {
+            KVPair<String, Rectangle> first = outer.next();
+
+            Iterator<KVPair<String, Rectangle>> inner =
+                list.iterator();
+
+            boolean foundFirst = false;
+
+            while (inner.hasNext()) 
+            {
+                KVPair<String, Rectangle> second = inner.next();
+
+                if (!foundFirst) 
+                {
+                    if (second == first) 
+                    {
+                        foundFirst = true;
+                    }
+                }
+                else if (first.getValue().intersect(
+                    second.getValue())) 
+                {
+
+                    System.out.println(
+                        "(" + first.getKey() + ", "
+                        + first.getValue() + " | "
+                        + second.getKey() + ", "
+                        + second.getValue() + ")");
+                }
+            }
+        }
     }
 
 
@@ -139,7 +233,24 @@ public class Database
      */
     public void search(String name)
     {
-        // fill
+        ArrayList<KVPair<String, Rectangle>> results =
+            list.search(name);
+
+        if (results.isEmpty()) 
+        {
+            System.out.println(
+                "Rectangle not found: (" + name + ")");
+        }
+        
+        else 
+        {
+            System.out.println("Rectangles found:");
+
+            for (KVPair<String, Rectangle> pair : results) 
+            {
+                System.out.println(pair);
+            }
+        }
     }
 
 
