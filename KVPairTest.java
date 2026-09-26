@@ -11,12 +11,24 @@ import student.TestCase;
 public class KVPairTest
     extends TestCase
 {
+    private Rectangle rect;
+    private KVPair<String, Rectangle> pair;
 
     public void setUp()
     {
-        // TODO: implement setup
+        rect = new Rectangle(1, 2, 3, 4);
+        pair = new KVPair<String, Rectangle>("box", rect);
     }
 
-    // TODO: implement tests
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     */
+    public void testKVPair()
+    {
+        assertEquals("box", pair.getKey());
+        assertEquals(rect, pair.getValue());
+        assertEquals("(box, 1, 2, 3, 4)", pair.toString());
+    }
 
 }

@@ -52,10 +52,32 @@ public class SkipList<K extends Comparable<? super K>, V>
      * 
      * @param key
      *            key to be searched for
+     * @return 
      */
     public ArrayList<KVPair<K, V>> search(K key)
     {
-        return null;
+        ArrayList<KVPair<K, V>> results = new ArrayList<KVPair<K, V>>();
+        SkipNode current = head;
+        
+        for (int i = head.level; i >= 0; i--)
+        {
+            while (current.forward[i] != null
+                && current.forward[i].element().getKey().compareTo(key) < 0)
+            {
+                current = current.forward[i];
+            }
+        }
+        
+        current = current.forward[0];
+        
+        while (current != null
+            && current.element().getKey().compareTo(key) == 0)
+        {
+            results.add(current.element());
+            current = current.forward[0];
+        }
+        
+        return results;
     }
 
 
@@ -141,7 +163,43 @@ public class SkipList<K extends Comparable<? super K>, V>
     @SuppressWarnings("unchecked")
     public KVPair<K, V> remove(K key)
     {
-        return null;
+        SkipNode[] update =
+            (SkipNode[])Array.newInstance(SkipNode.class, head.level + 1);
+
+        SkipNode current = head;
+
+        for (int i = head.level; i >= 0; i--)
+        {
+            while (current.forward[i] != null
+                && current.forward[i].element().getKey().compareTo(key) < 0)
+            {
+                current = current.forward[i];
+            }
+
+            update[i] = current;
+        }
+
+        current = current.forward[0];
+
+        if (current == null
+            || current.element().getKey().compareTo(key) != 0)
+        {
+            return null;
+        }
+
+        KVPair<K, V> removed = current.element();
+
+        for (int i = 0; i <= head.level; i++)
+        {
+            if (update[i].forward[i] == current)
+            {
+                update[i].forward[i] = current.forward[i];
+            }
+        }
+
+        size--;
+
+        return removed;
     }
 
 
@@ -155,7 +213,40 @@ public class SkipList<K extends Comparable<? super K>, V>
     public KVPair<K, V> removeByValue(V val)
     {
 
-        return null;
+        SkipNode target = head.forward[0];
+
+        while (target != null
+            && !target.element().getValue().equals(val))
+        {
+            target = target.forward[0];
+        }
+
+        if (target == null)
+        {
+            return null;
+        }
+
+        KVPair<K, V> removed = target.element();
+
+        for (int i = 0; i <= head.level; i++)
+        {
+            SkipNode current = head;
+
+            while (current.forward[i] != null
+                && current.forward[i] != target)
+            {
+                current = current.forward[i];
+            }
+
+            if (current.forward[i] == target)
+            {
+                current.forward[i] = target.forward[i];
+            }
+        }
+
+        size--;
+
+        return removed;
     }
 
 

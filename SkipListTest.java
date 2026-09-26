@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import student.TestCase;
 import student.TestableRandom;
+import java.util.ArrayList;
 
 /**
  * This class tests the methods of SkipList class
@@ -162,6 +163,99 @@ public class SkipListTest
                 + "Node with depth 2, Value (test, 1, 2, 3, 4)\n"
                 + "SkipList size is: 1\n",
             systemOut().getHistory());
+    }
+    
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     */
+    public void testSearch()
+    {
+        // Search with one matching rectangle
+        TestableRandom.setNextBooleans(false);
+
+        Rectangle rect = new Rectangle(1, 2, 3, 4);
+
+        KVPair<String, Rectangle> pair =
+            new KVPair<String, Rectangle>("a", rect);
+
+        sl.insert(pair);
+
+        ArrayList<KVPair<String, Rectangle>> results = sl.search("a");
+
+        assertEquals(1, results.size());
+        assertEquals(pair, results.get(0));
+
+        //name does not exist
+        assertEquals(0, sl.search("missing").size());
+
+        // duplicate rectangles
+        TestableRandom.setNextBooleans(false);
+
+        KVPair<String, Rectangle> second =
+            new KVPair<String, Rectangle>(
+                "a",
+                new Rectangle(10, 20, 30, 40));
+
+        sl.insert(second);
+
+        // finds both rectangles named "a"
+        results = sl.search("a");
+
+        assertEquals(2, results.size());
+    }
+    
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     */
+    public void testRemove()
+    {
+        TestableRandom.setNextBooleans(false);
+
+        KVPair<String, Rectangle> pair =
+            new KVPair<String, Rectangle>(
+                "a",
+                new Rectangle(1, 2, 3, 4));
+
+        sl.insert(pair);
+
+        KVPair<String, Rectangle> removed = sl.remove("a");
+
+        assertEquals(pair, removed);
+        assertEquals(0, sl.size());
+        
+        //key not found
+        assertNull(sl.remove("missing"));
+        assertEquals(0, sl.size());
+    }
+    
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     */
+    public void testRemoveByValue()
+    {
+        TestableRandom.setNextBooleans(false);
+
+        Rectangle rect = new Rectangle(1, 2, 3, 4);
+
+        KVPair<String, Rectangle> pair =
+            new KVPair<String, Rectangle>("a", rect);
+
+        sl.insert(pair);
+
+        KVPair<String, Rectangle> removed =
+            sl.removeByValue(new Rectangle(1, 2, 3, 4));
+
+        assertEquals(pair, removed);
+        assertEquals(0, sl.size());
+        
+        //not found
+        
+        assertNull(sl.removeByValue(new Rectangle(1, 2, 3, 4)));
+
+        assertEquals(0, sl.size());
     }
 
 }
