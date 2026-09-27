@@ -1,7 +1,4 @@
 import java.util.Iterator;
-
-import org.junit.Test;
-
 import student.TestCase;
 import student.TestableRandom;
 import java.util.ArrayList;
@@ -205,6 +202,49 @@ public class SkipListTest
         assertEquals(2, results.size());
     }
     
+    /**
+     * Tests searching through multiple keys and duplicate keys.
+     */
+    public void testSearchMultipleKeys()
+    {
+        TestableRandom.setNextBooleans(
+            false, false, false, false);
+
+        KVPair<String, Rectangle> a =
+            new KVPair<String, Rectangle>(
+                "a", new Rectangle(1, 1, 1, 1));
+
+        KVPair<String, Rectangle> b1 =
+            new KVPair<String, Rectangle>(
+                "b", new Rectangle(2, 2, 2, 2));
+
+        KVPair<String, Rectangle> b2 =
+            new KVPair<String, Rectangle>(
+                "b", new Rectangle(3, 3, 3, 3));
+
+        KVPair<String, Rectangle> c =
+            new KVPair<String, Rectangle>(
+                "c", new Rectangle(4, 4, 4, 4));
+
+        sl.insert(a);
+        sl.insert(b1);
+        sl.insert(b2);
+        sl.insert(c);
+
+        ArrayList<KVPair<String, Rectangle>> results =
+            sl.search("b");
+
+        assertEquals(2, results.size());
+        assertEquals("b", results.get(0).getKey());
+        assertEquals("b", results.get(1).getKey());
+
+        assertEquals(1, sl.search("a").size());
+        assertEquals(1, sl.search("c").size());
+
+        assertEquals(0, sl.search("d").size());
+        assertEquals(0, sl.search("aa").size());
+    }
+    
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
@@ -257,5 +297,200 @@ public class SkipListTest
 
         assertEquals(0, sl.size());
     }
+    
+    
+    /**
+     * Tests removing keys from different positions in the SkipList.
+     */
+    public void testRemoveMultipleKeys()
+    {
+        TestableRandom.setNextBooleans(
+            false, false, false);
+
+        KVPair<String, Rectangle> a =
+            new KVPair<String, Rectangle>(
+                "a", new Rectangle(1, 1, 1, 1));
+
+        KVPair<String, Rectangle> b =
+            new KVPair<String, Rectangle>(
+                "b", new Rectangle(2, 2, 2, 2));
+
+        KVPair<String, Rectangle> c =
+            new KVPair<String, Rectangle>(
+                "c", new Rectangle(3, 3, 3, 3));
+
+        sl.insert(a);
+        sl.insert(b);
+        sl.insert(c);
+
+        assertEquals(3, sl.size());
+
+        // Remove middle
+        assertEquals(b, sl.remove("b"));
+        assertEquals(2, sl.size());
+        assertEquals(0, sl.search("b").size());
+
+        // Remove beginning
+        assertEquals(a, sl.remove("a"));
+        assertEquals(1, sl.size());
+
+        // Remove end
+        assertEquals(c, sl.remove("c"));
+        assertEquals(0, sl.size());
+
+        // Remove from empty list
+        assertNull(sl.remove("c"));
+    }
+    
+    /**
+     * Tests removing a node that has multiple SkipList levels.
+     */
+    public void testRemoveMultiLevel()
+    {
+        // a gets a higher level
+        TestableRandom.setNextBooleans(
+            true, true, false,
+            false,
+            false);
+
+        KVPair<String, Rectangle> a =
+            new KVPair<String, Rectangle>(
+                "a", new Rectangle(1, 1, 1, 1));
+
+        KVPair<String, Rectangle> b =
+            new KVPair<String, Rectangle>(
+                "b", new Rectangle(2, 2, 2, 2));
+
+        KVPair<String, Rectangle> c =
+            new KVPair<String, Rectangle>(
+                "c", new Rectangle(3, 3, 3, 3));
+
+        sl.insert(a);
+        sl.insert(b);
+        sl.insert(c);
+
+        assertEquals(3, sl.size());
+
+        KVPair<String, Rectangle> removed = sl.remove("a");
+
+        assertEquals(a, removed);
+        assertEquals(2, sl.size());
+        assertEquals(0, sl.search("a").size());
+        assertEquals(1, sl.search("b").size());
+        assertEquals(1, sl.search("c").size());
+    }
+    
+    
+    /**
+     * Tests removing a value that occurs after other values.
+     */
+    public void testRemoveByValueMultiple()
+    {
+        TestableRandom.setNextBooleans(
+            false, false, false);
+
+        Rectangle r1 = new Rectangle(1, 1, 1, 1);
+        Rectangle r2 = new Rectangle(2, 2, 2, 2);
+        Rectangle r3 = new Rectangle(3, 3, 3, 3);
+
+        KVPair<String, Rectangle> a =
+            new KVPair<String, Rectangle>("a", r1);
+
+        KVPair<String, Rectangle> b =
+            new KVPair<String, Rectangle>("b", r2);
+
+        KVPair<String, Rectangle> c =
+            new KVPair<String, Rectangle>("c", r3);
+
+        sl.insert(a);
+        sl.insert(b);
+        sl.insert(c);
+
+        KVPair<String, Rectangle> removed =
+            sl.removeByValue(r2);
+
+        assertEquals(b, removed);
+        assertEquals(2, sl.size());
+
+        assertEquals(1, sl.search("a").size());
+        assertEquals(0, sl.search("b").size());
+        assertEquals(1, sl.search("c").size());
+
+        assertNull(
+            sl.removeByValue(
+                new Rectangle(100, 100, 1, 1)));
+
+        assertEquals(2, sl.size());
+    }
+    
+    /**
+     * Tests removing a value stored in a multi-level node.
+     */
+    public void testRemoveByValueMultiLevel()
+    {
+        TestableRandom.setNextBooleans(
+            false,
+            true, true, false,
+            false);
+
+        Rectangle r1 = new Rectangle(1, 1, 1, 1);
+        Rectangle r2 = new Rectangle(2, 2, 2, 2);
+        Rectangle r3 = new Rectangle(3, 3, 3, 3);
+
+        KVPair<String, Rectangle> a =
+            new KVPair<String, Rectangle>("a", r1);
+
+        KVPair<String, Rectangle> b =
+            new KVPair<String, Rectangle>("b", r2);
+
+        KVPair<String, Rectangle> c =
+            new KVPair<String, Rectangle>("c", r3);
+
+        sl.insert(a);
+        sl.insert(b);
+        sl.insert(c);
+
+        assertEquals(b, sl.removeByValue(r2));
+
+        assertEquals(2, sl.size());
+        assertEquals(0, sl.search("b").size());
+    }
+    
+    /**
+     * Tests iteration through an empty and populated SkipList.
+     */
+    public void testIterator()
+    {
+        Iterator<KVPair<String, Rectangle>> emptyIterator =
+            sl.iterator();
+
+        assertFalse(emptyIterator.hasNext());
+
+        TestableRandom.setNextBooleans(false, false);
+
+        KVPair<String, Rectangle> a =
+            new KVPair<String, Rectangle>(
+                "a", new Rectangle(1, 1, 1, 1));
+
+        KVPair<String, Rectangle> b =
+            new KVPair<String, Rectangle>(
+                "b", new Rectangle(2, 2, 2, 2));
+
+        sl.insert(b);
+        sl.insert(a);
+
+        Iterator<KVPair<String, Rectangle>> iterator =
+            sl.iterator();
+
+        assertTrue(iterator.hasNext());
+        assertEquals(a, iterator.next());
+
+        assertTrue(iterator.hasNext());
+        assertEquals(b, iterator.next());
+
+        assertFalse(iterator.hasNext());
+    }
+    
+    
 
 }

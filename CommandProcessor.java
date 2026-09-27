@@ -2,7 +2,7 @@
  * The purpose of this class is to parse a text file into its appropriate, line
  * by line commands for the format specified in the project spec.
  * 
- * @author CS Staff
+ * @author Yosna Venkatesh
  * @version 2024-01-22
  */
 public class CommandProcessor

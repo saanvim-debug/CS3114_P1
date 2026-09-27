@@ -3,7 +3,7 @@
  * This class holds the coordinates and dimensions of a rectangle and methods to
  * check if it intersects or has the same coordinates as an other rectangle.
  * 
- * @author CS Staff
+ * @author Yosna Venkatesh
  * @version 2024-01-22
  */
 public class Rectangle

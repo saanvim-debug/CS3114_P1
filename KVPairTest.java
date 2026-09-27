@@ -5,7 +5,7 @@ import student.TestCase;
  * This class tests the KVPair class so that the member methods work properly
  * and that the expected behavior occurs.
  * 
- * @author CS Staff
+ * @author Saanvi Movva
  * @version 2024.1
  */
 public class KVPairTest

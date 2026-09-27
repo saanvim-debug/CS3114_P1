@@ -52,7 +52,7 @@ public class SkipList<K extends Comparable<? super K>, V>
      * 
      * @param key
      *            key to be searched for
-     * @return 
+     * @return a list containing all KVPairs with the specified key
      */
     public ArrayList<KVPair<K, V>> search(K key)
     {
@@ -152,14 +152,12 @@ public class SkipList<K extends Comparable<? super K>, V>
 
 
     /**
-     * Removes the KVPair that is passed in as a parameter and returns true if
-     * the pair was valid and false if not.
-     * 
-     * @param pair
-     *            the KVPair to be removed
-     * @return returns the removed pair if the pair was valid and null if not
+     * Removes one KVPair with the specified key from the SkipList.
+     *
+     * @param key
+     *            the key of the KVPair to remove
+     * @return the removed KVPair, or null if no matching key exists
      */
-
     @SuppressWarnings("unchecked")
     public KVPair<K, V> remove(K key)
     {
@@ -344,7 +342,6 @@ public class SkipList<K extends Comparable<? super K>, V>
         @Override
         public boolean hasNext()
         {
-            // TODO Auto-generated method stub
             return current.forward[0] != null;
         }
 
@@ -353,7 +350,6 @@ public class SkipList<K extends Comparable<? super K>, V>
         @Override
         public KVPair<K, V> next()
         {
-            // TODO Auto-generated method stub
             KVPair<K, V> elem = current.forward[0].element();
             current = current.forward[0];
             return elem;
@@ -365,7 +361,6 @@ public class SkipList<K extends Comparable<? super K>, V>
     @Override
     public Iterator<KVPair<K, V>> iterator()
     {
-        // TODO Auto-generated method stub
         return new SkipListIterator();
     }
 

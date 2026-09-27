@@ -6,7 +6,7 @@ import student.TestableRandom;
  * its bounds, if applicable to ensure they work properly. Also test passing
  * improper command to ensure all class functionalities work as intended.
  * 
- * @author <your_name>
+ * @author Yosna Venkatesh
  * @version <version_no>
  */
 public class CommandProcessorTest
@@ -60,8 +60,9 @@ public class CommandProcessorTest
     {
         processor.processor("remove a");
 
-        assertEquals("", systemOut().getHistory());
-    }
+        assertEquals(
+            "Rectangle not removed: a\n",
+            systemOut().getHistory());    }
 
 
     /**
@@ -72,18 +73,22 @@ public class CommandProcessorTest
     {
         processor.processor("remove 1 2 3 4");
 
-        assertEquals("", systemOut().getHistory());
+        assertEquals(
+            "Rectangle not found: (1, 2, 3, 4)\n",
+            systemOut().getHistory());
     }
 
 
     /**
-     * Tests that a regionsearch command is processed correctly.
+     * Tests that a regionSearch command is processed correctly.
      */
     public void testRegionSearch()
     {
         processor.processor("regionsearch 1 2 3 4");
 
-        assertEquals("", systemOut().getHistory());
+        assertEquals(
+            "Rectangles intersecting region (1, 2, 3, 4):\n",
+            systemOut().getHistory());
     }
 
 
@@ -94,7 +99,9 @@ public class CommandProcessorTest
     {
         processor.processor("intersections");
 
-        assertEquals("", systemOut().getHistory());
+        assertEquals(
+            "Intersection pairs:\n",
+            systemOut().getHistory());
     }
 
 
@@ -106,7 +113,9 @@ public class CommandProcessorTest
     {
         processor.processor("search a");
 
-        assertEquals("", systemOut().getHistory());
+        assertEquals(
+            "Rectangle not found: (a)\n",
+            systemOut().getHistory());
     }
 
 
