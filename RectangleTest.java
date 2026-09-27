@@ -5,7 +5,7 @@ import student.TestCase;
  * they should.
  * 
  * @author Yosna Venkatesh
- * @version <version_no>
+ * @version 2026-09-27
  */
 public class RectangleTest
     extends TestCase
@@ -154,29 +154,26 @@ public class RectangleTest
     {
         assertFalse(new Rectangle(0, 0, 1024, 1024).isInvalid());
     }
-    
+
+
     /**
      * Tests rectangles that differ in individual fields.
      */
     public void testEqualsDifferentFields()
     {
-        assertFalse(
-            rect.equals(new Rectangle(11, 20, 30, 40)));
+        assertFalse(rect.equals(new Rectangle(11, 20, 30, 40)));
 
-        assertFalse(
-            rect.equals(new Rectangle(10, 21, 30, 40)));
+        assertFalse(rect.equals(new Rectangle(10, 21, 30, 40)));
 
-        assertFalse(
-            rect.equals(new Rectangle(10, 20, 31, 40)));
+        assertFalse(rect.equals(new Rectangle(10, 20, 31, 40)));
 
-        assertFalse(
-            rect.equals(new Rectangle(10, 20, 30, 41)));
+        assertFalse(rect.equals(new Rectangle(10, 20, 30, 41)));
 
         assertFalse(rect.equals(null));
         assertTrue(rect.equals(rect));
     }
-    
-    
+
+
     /**
      * Tests that rectangles touching on any edge do not intersect.
      */
@@ -194,28 +191,24 @@ public class RectangleTest
         assertFalse(center.intersect(above));
         assertFalse(center.intersect(below));
     }
-    
-    
+
+
     /**
      * Tests rectangles exactly at and just beyond the world boundaries.
      */
     public void testWorldBoundaries()
     {
         // Exactly reaches right edge
-        assertFalse(
-            new Rectangle(1023, 0, 1, 1).isInvalid());
+        assertFalse(new Rectangle(1023, 0, 1, 1).isInvalid());
 
         // One unit beyond right edge
-        assertTrue(
-            new Rectangle(1023, 0, 2, 1).isInvalid());
+        assertTrue(new Rectangle(1023, 0, 2, 1).isInvalid());
 
         // Exactly reaches bottom edge
-        assertFalse(
-            new Rectangle(0, 1023, 1, 1).isInvalid());
+        assertFalse(new Rectangle(0, 1023, 1, 1).isInvalid());
 
         // One unit beyond bottom edge
-        assertTrue(
-            new Rectangle(0, 1023, 1, 2).isInvalid());
+        assertTrue(new Rectangle(0, 1023, 1, 2).isInvalid());
     }
 
 }

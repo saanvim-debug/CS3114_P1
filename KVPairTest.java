@@ -6,7 +6,7 @@ import student.TestCase;
  * and that the expected behavior occurs.
  * 
  * @author Saanvi Movva
- * @version 2024.1
+ * @version 2026-09-27
  */
 public class KVPairTest
     extends TestCase
@@ -14,6 +14,10 @@ public class KVPairTest
     private Rectangle rect;
     private KVPair<String, Rectangle> pair;
 
+    /**
+     * Sets up the test objects before each test method. Creates a Rectangle and
+     * a KVPair containing the rectangle.
+     */
     public void setUp()
     {
         rect = new Rectangle(1, 2, 3, 4);
@@ -21,8 +25,11 @@ public class KVPairTest
     }
 
     // ----------------------------------------------------------
+
+
     /**
-     * Place a description of your method here.
+     * Tests the KVPair getKey(), getValue(), and toString() methods to ensure
+     * they return the expected values.
      */
     public void testKVPair()
     {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * SkipList method after some preparation.
  * 
  * @author Yosna Venkatesh
- * @version 2024-01-22
+ * @version 2026-09-27
  */
 public class Database
 {
@@ -56,7 +56,7 @@ public class Database
         {
             System.out.println("Rectangle rejected: " + pair);
         }
-        
+
         else
         {
             list.insert(pair);
@@ -78,12 +78,12 @@ public class Database
     {
         KVPair<String, Rectangle> removed = list.remove(name);
 
-        if (removed == null) 
+        if (removed == null)
         {
             System.out.println("Rectangle not removed: " + name);
         }
-        
-        else 
+
+        else
         {
             System.out.println("Rectangle removed: " + removed);
         }
@@ -107,26 +107,22 @@ public class Database
     {
         Rectangle rect = new Rectangle(x, y, w, h);
 
-        if (rect.isInvalid()) 
+        if (rect.isInvalid())
         {
-            System.out.println(
-                "Rectangle rejected: (" + rect + ")");
+            System.out.println("Rectangle rejected: (" + rect + ")");
             return;
         }
 
-        KVPair<String, Rectangle> removed =
-            list.removeByValue(rect);
+        KVPair<String, Rectangle> removed = list.removeByValue(rect);
 
-        if (removed == null) 
+        if (removed == null)
         {
-            System.out.println(
-                "Rectangle not found: (" + rect + ")");
+            System.out.println("Rectangle not found: (" + rect + ")");
         }
-        
-        else 
+
+        else
         {
-            System.out.println(
-                "Rectangle removed: " + removed);
+            System.out.println("Rectangle removed: " + removed);
         }
     }
 
@@ -148,30 +144,28 @@ public class Database
      */
     public void regionsearch(int x, int y, int w, int h)
     {
-        if (w <= 0 || h <= 0) 
+        if (w <= 0 || h <= 0)
         {
             System.out.println(
-                "Rectangle rejected: ("
-                + x + ", " + y + ", "
-                + w + ", " + h + ")");
+                "Rectangle rejected: (" + x + ", " + y + ", " + w + ", " + h
+                    + ")");
             return;
         }
 
         Rectangle region = new Rectangle(x, y, w, h);
 
         System.out.println(
-            "Rectangles intersecting region ("
-            + x + ", " + y + ", "
-            + w + ", " + h + "):");
+            "Rectangles intersecting region (" + x + ", " + y + ", " + w + ", "
+                + h + "):");
 
-        for (KVPair<String, Rectangle> pair : list) 
+        for (KVPair<String, Rectangle> pair : list)
         {
-            
-            if (pair.getValue().intersect(region)) 
+
+            if (pair.getValue().intersect(region))
             {
                 System.out.println(pair);
             }
-            
+
         }
     }
 
@@ -186,38 +180,33 @@ public class Database
     {
         System.out.println("Intersection pairs:");
 
-        Iterator<KVPair<String, Rectangle>> outer =
-            list.iterator();
+        Iterator<KVPair<String, Rectangle>> outer = list.iterator();
 
-        while (outer.hasNext()) 
+        while (outer.hasNext())
         {
             KVPair<String, Rectangle> first = outer.next();
 
-            Iterator<KVPair<String, Rectangle>> inner =
-                list.iterator();
+            Iterator<KVPair<String, Rectangle>> inner = list.iterator();
 
             boolean foundFirst = false;
 
-            while (inner.hasNext()) 
+            while (inner.hasNext())
             {
                 KVPair<String, Rectangle> second = inner.next();
 
-                if (!foundFirst) 
+                if (!foundFirst)
                 {
-                    if (second == first) 
+                    if (second == first)
                     {
                         foundFirst = true;
                     }
                 }
-                else if (first.getValue().intersect(
-                    second.getValue())) 
+                else if (first.getValue().intersect(second.getValue()))
                 {
 
                     System.out.println(
-                        "(" + first.getKey() + ", "
-                        + first.getValue() + " | "
-                        + second.getKey() + ", "
-                        + second.getValue() + ")");
+                        "(" + first.getKey() + ", " + first.getValue() + " | "
+                            + second.getKey() + ", " + second.getValue() + ")");
                 }
             }
         }
@@ -233,20 +222,18 @@ public class Database
      */
     public void search(String name)
     {
-        ArrayList<KVPair<String, Rectangle>> results =
-            list.search(name);
+        ArrayList<KVPair<String, Rectangle>> results = list.search(name);
 
-        if (results.isEmpty()) 
+        if (results.isEmpty())
         {
-            System.out.println(
-                "Rectangle not found: (" + name + ")");
+            System.out.println("Rectangle not found: (" + name + ")");
         }
-        
-        else 
+
+        else
         {
             System.out.println("Rectangles found:");
 
-            for (KVPair<String, Rectangle> pair : results) 
+            for (KVPair<String, Rectangle> pair : results)
             {
                 System.out.println(pair);
             }

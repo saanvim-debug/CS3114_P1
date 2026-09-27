@@ -7,7 +7,7 @@ import student.TestableRandom;
  * improper command to ensure all class functionalities work as intended.
  * 
  * @author Yosna Venkatesh
- * @version <version_no>
+ * @version 2026-09-27
  */
 public class CommandProcessorTest
     extends TestCase
@@ -18,7 +18,7 @@ public class CommandProcessorTest
     /**
      * The setUp() method will be called automatically before each test and
      * reset whatever the test modified. For this test class, only a new
-     * database object is needed, so creat a database here for use in each test
+     * database object is needed, so create a database here for use in each test
      * case.
      */
     public void setUp()
@@ -60,9 +60,8 @@ public class CommandProcessorTest
     {
         processor.processor("remove a");
 
-        assertEquals(
-            "Rectangle not removed: a\n",
-            systemOut().getHistory());    }
+        assertEquals("Rectangle not removed: a\n", systemOut().getHistory());
+    }
 
 
     /**
@@ -99,9 +98,7 @@ public class CommandProcessorTest
     {
         processor.processor("intersections");
 
-        assertEquals(
-            "Intersection pairs:\n",
-            systemOut().getHistory());
+        assertEquals("Intersection pairs:\n", systemOut().getHistory());
     }
 
 
@@ -113,9 +110,7 @@ public class CommandProcessorTest
     {
         processor.processor("search a");
 
-        assertEquals(
-            "Rectangle not found: (a)\n",
-            systemOut().getHistory());
+        assertEquals("Rectangle not found: (a)\n", systemOut().getHistory());
     }
 
 

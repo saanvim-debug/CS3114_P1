@@ -9,7 +9,7 @@ import student.TestableRandom;
  * class which the SkipList will make an array of to store data.
  * 
  * @author Saanvi Movva
- * @version 2024-01-22
+ * @version 2026-09-27
  * @param <K>
  *            Key
  * @param <V>
@@ -58,7 +58,7 @@ public class SkipList<K extends Comparable<? super K>, V>
     {
         ArrayList<KVPair<K, V>> results = new ArrayList<KVPair<K, V>>();
         SkipNode current = head;
-        
+
         for (int i = head.level; i >= 0; i--)
         {
             while (current.forward[i] != null
@@ -67,16 +67,16 @@ public class SkipList<K extends Comparable<? super K>, V>
                 current = current.forward[i];
             }
         }
-        
+
         current = current.forward[0];
-        
+
         while (current != null
             && current.element().getKey().compareTo(key) == 0)
         {
             results.add(current.element());
             current = current.forward[0];
         }
-        
+
         return results;
     }
 
@@ -179,8 +179,7 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         current = current.forward[0];
 
-        if (current == null
-            || current.element().getKey().compareTo(key) != 0)
+        if (current == null || current.element().getKey().compareTo(key) != 0)
         {
             return null;
         }
@@ -213,8 +212,7 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         SkipNode target = head.forward[0];
 
-        while (target != null
-            && !target.element().getValue().equals(val))
+        while (target != null && !target.element().getValue().equals(val))
         {
             target = target.forward[0];
         }
@@ -230,8 +228,7 @@ public class SkipList<K extends Comparable<? super K>, V>
         {
             SkipNode current = head;
 
-            while (current.forward[i] != null
-                && current.forward[i] != target)
+            while (current.forward[i] != null && current.forward[i] != target)
             {
                 current = current.forward[i];
             }
